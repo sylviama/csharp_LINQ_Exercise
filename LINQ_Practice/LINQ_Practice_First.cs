@@ -17,6 +17,7 @@ namespace LINQ_Practice
         * And .FirstOrDefault()
         * which returns null if there is not an item that matches condition
         * but still returns the first occurance of an item that matched the condition if there is one
+        * Sylvia's note: First doesn't change type
        */
         public List<Cohort> PracticeData { get; set; }
         public CohortBuilder CohortBuilder { get; set; }
@@ -57,10 +58,10 @@ namespace LINQ_Practice
             Assert.AreEqual(ActualCohort, CohortBuilder.Cohort2);
         }
 
-        [TestMethod]
+        [TestMethod]//??
         public void GetFirstCohortWithInstructorNamedZeldaOrNull()
         {
-            var ActualCohort = PracticeData;
+            var ActualCohort = PracticeData.FirstOrDefault(c=>c.PrimaryInstructor.FirstName.ToLower()=="zelda"||c.JuniorInstructors.Any(ji=>ji.FirstName.ToLower()=="zelda"));
             Assert.IsNull(ActualCohort);
         }
 

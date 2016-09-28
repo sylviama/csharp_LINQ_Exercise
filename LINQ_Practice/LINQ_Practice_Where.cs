@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LINQ_Practice.Models;
 using System.Collections.Generic;
 using System.Linq;
-
+/*Sylvia's note: Where doesn't change type*/
 namespace LINQ_Practice
 {
     [TestClass]

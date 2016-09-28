@@ -16,6 +16,7 @@ namespace LINQ_Practice
          * And .SingleOrDefault()
          * which returns null if there is not an item that matches condition
          * but throws an exception if there is more than one item that matches condition
+         * Sylvia's note: single doesn't change type
         */
     {
         public List<Cohort> PracticeData { get; set; }
@@ -38,21 +39,21 @@ namespace LINQ_Practice
         [TestMethod]
         public void GetOnlyCohortWithThreeJuniorInstructors()
         {
-            var ActualCohort = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var ActualCohort = PracticeData.SingleOrDefault(c=>c.JuniorInstructors.Count()==3);
             Assert.AreEqual(ActualCohort, CohortBuilder.Cohort3);
         }
 
         [TestMethod]
         public void GetOnlyCohortThatIsFullTimeAndPrimaryInstructorBirthdayInTheFuture()
         {
-            var ActualCohort = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var ActualCohort = PracticeData.SingleOrDefault(c=>c.FullTime && c.PrimaryInstructor.Birthday>DateTime.Today);
             Assert.AreEqual(ActualCohort, CohortBuilder.Cohort2);
         }
 
         [TestMethod]
         public void GetOnlyCohortWithInstructorNamedZeldaOrNull()
         {
-            var ActualCohort = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var ActualCohort = PracticeData.SingleOrDefault(c=>c.PrimaryInstructor.FirstName.ToLower()=="zelda"||c.JuniorInstructors.Any(ji=>ji.FirstName.ToLower()=="zelda"));
             Assert.IsNull(ActualCohort);
         }
 
@@ -60,14 +61,14 @@ namespace LINQ_Practice
         [ExpectedException(typeof(System.InvalidOperationException))]
         public void GetOnlyCohortThatIsBothNotActiveAndNotFullTimeOrThrowException()
         {
-            var shouldThrowException = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var shouldThrowException = PracticeData.Single(c=>c.Active==false && c.FullTime==false);
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.InvalidOperationException))]
         public void GetOnlyCohortWith2JuniorInstructorsOrThrowException()
         {
-            var shouldThrowException = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var shouldThrowException = PracticeData.SingleOrDefault(c=>c.JuniorInstructors.Count()==2);
         }
     }
 }
